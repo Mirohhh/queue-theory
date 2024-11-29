@@ -4,10 +4,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Queue Theory</title>
+    <link rel="stylesheet" type='text/css' href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
 </head>
 
 <body>
+    <div id="main-container">
+        <h1>Queue Theory</h1>
+        <form action="" onsubmit="event.preventDefault()">
+            <section id="form-inner-sec">
+                <div id="label-input-div">
+                    <label for="lambda">Lambda</label>
+                    <input type="text" id="lambda" maxlength="4">
+                </div>
+
+                <div id="label-input-div">
+                    <label for="mu">Mu</label>
+                    <input type="text" id="mu" maxlength="4">
+                </div>
+
+                <div id="label-input-div">
+                    <label for="servers">Servers</label>
+                    <input type="text" id="servers" maxlength="2">
+                </div>
+
+                <div id="label-input-div">
+                    <label for="bound">Bound</label>
+                    <input type="text" id="bound" maxlength="2">
+                </div>
+            </section>
+            <button type="submit" id="sbmt">Calculate</button>
+            <h3 id="result">L= , Lq= , W= , Wq= </h3>
+        </form>
+
+    </div>
+    <footer>
+        <h4>Copyright © Mirohhh 2024</h4>
+        <a href="https://github.com/Mirohhh"><i class="devicon-github-original"></i></a>
+    </footer>
 </body>
 
 </html>
