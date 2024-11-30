@@ -42,7 +42,7 @@ function detModel(s, b, lm, m) {
     } else if (s > 1 && b == 0) {
         return calcMMC(s, lm, m);
     } else if (s > 1 && b > 0) {
-        return calcMMCK();
+        return calcMMCK(lm, m, s, b);
     } 
     
     return "Please enter valid inputs.";
@@ -120,6 +120,52 @@ function calcMMC(c, lmd, mui) {
     return `L= ${roundToTwo(l)},  Lq= ${roundToTwo(lq)},  W= ${roundToTwo(w)},  Wq= ${roundToTwo(wq)}`;
 }
 
-function calcMMCK(params) {
-    
+function calc_p0_inverse_ck(rho, r, c, k) {
+    if (rho === 1) {
+        let sum1 = 0;
+        for (let n = 0; n < c; n++) {
+            sum1 += Math.pow(r, n) / factorial(n);
+        }
+        const term2 = (Math.pow(r, c) / factorial(c)) * (k - c + 1);
+
+        return sum1 + term2;
+    } else {
+        let sum2 = 0;
+        for (let n = 0; n < c; n++) {
+            sum2 += Math.pow(r, n) / factorial(n);
+        }
+        const term2 = (Math.pow(r, c) / factorial(c)) * ((1 - Math.pow(rho, (k - c + 1))) / (1 - rho));
+
+        return sum2 + term2;
+    }
+}
+
+function calcPn(n, r, c, p0) {
+    if (n >= 0 && n < c) {
+        return ( (Math.pow(r, n) / factorial(n)) * p0 );
+    } else {
+        return ( (Math.pow(r, n) / ( Math.pow(c, n - c) * factorial(c) ) ) * p0 );
+    }
+}
+
+function calcMMCK(lmd, mui, c, k) {
+    const r = lmd / mui;
+    const rho = r / c;
+    const p0 = 1 / calc_p0_inverse_ck(rho, r, c, k);
+    const lmddash = lmd * ( 1 - calcPn(k, r, c, p0) );
+
+    const t1 = ( rho * Math.pow(r, c) * p0 ) / ( factorial(c) * Math.pow((1 - rho), 2) );
+    const t2 = 1 - Math.pow(rho, (k - c + 1)) - (1 - rho) * (k - c + 1) * Math.pow(rho, (k - c));
+    const lq = t1 * t2;
+
+    let sum = 0;
+    for (let n = 0; n < c; n++) {
+        sum += (c - n) * ( Math.pow(r, n) / factorial(n) );
+    }
+
+    const l = lq + c - ( p0 * sum );
+    const w = l / lmddash;
+    const wq = lq / lmddash;
+
+    return `L= ${roundToTwo(l)},  Lq= ${roundToTwo(lq)},  W= ${roundToTwo(w)},  Wq= ${roundToTwo(wq)}`;
 }
