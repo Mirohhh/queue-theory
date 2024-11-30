@@ -1,6 +1,7 @@
 html,
 body {
-    font-family: Roboto, Arial, Helvetica, sans-serif;
+    font-family: Inter, Arial, Helvetica, sans-serif;
+    font-feature-settings: "frac" on;
     margin: 0;
     padding: 0;
     height: 100vh;
@@ -21,8 +22,10 @@ div#main-container {
 h1 {
     text-align: center;
     font-size: 5rem;
-    font-weight: bold;
+    font-weight: 200;
     color: #f2f2f2;
+    font-style: italic;
+    text-shadow: 2px 5px 24px #282828;
 }
 
 section#form-outer-sec {
