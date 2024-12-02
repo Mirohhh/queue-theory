@@ -5,7 +5,7 @@ const mu = document.getElementById("mu");
 const servers = document.getElementById("servers");
 const bound = document.getElementById("bound");
 const subBtn = document.getElementById("sbmt");
-const res = document.getElementById("result")
+const res = document.getElementById("result");
 
 subBtn.addEventListener("click", () => {
     let lmd = parseFloat(lambda.value);

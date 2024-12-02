@@ -14,8 +14,9 @@ div#main-container {
     height: 100vh;
     display: flex;
     flex-direction: column;
+    gap: 40px;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     background-color: #0f0f0f;
 }
 
@@ -25,6 +26,7 @@ h1 {
     font-weight: 200;
     color: #f2f2f2;
     font-style: italic;
+    margin-bottom: 72px;
     text-shadow: 2px 5px 24px #282828;
 }
 
@@ -88,23 +90,57 @@ h3 {
     align-self: center;
 }
 
-button {
-    font-size: 1.2rem;
+#sbmt {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
     font-weight: bold;
     cursor: pointer;
-    color: #f1f1f1;
-    background-color: #1c62b9;
-    border-radius: 8px;
-    width: 40%;
+    color: lightskyblue;
+    background-color: transparent;
+    border-radius: 12px;
+    width: 16%;
     align-self: center;
     margin-top: 4%;
-    height: 48px;
+    height: 60px;
     transition: 0.2s ease-out;
-    border: 2px solid transparent;
+    border: 2px solid rgb(255, 255, 255, 0.1);
 }
 
-button:hover {
-    background-color: #3b7fd3;
+span#btn-txt {
+    transition: 0.15s ease-in-out;
+    transform: translateX(12%);
+}
+
+#sbmt:hover > span#btn-txt {
+    transform: translateX(-8px);
+}
+
+#sbmt:hover {
+    background-color: rgb(255, 255, 255, 0.1);
+}
+
+svg {
+    fill: #f1f1f1;
+    align-self: center;
+    transition: 0.15s ease-in-out;
+    justify-self: center;
+    opacity: 0;
+
+    @starting-style {
+        opacity: 0;
+    }
+}
+
+#sbmt:hover > svg {
+    transform: translateX(8px) ;
+    opacity: 1;
+}
+
+#sbmt:hover > text {
+    transform: translateX(-4px) ;
+    opacity: 1;
 }
 
 h4 {
