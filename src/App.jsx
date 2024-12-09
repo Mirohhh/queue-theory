@@ -1,4 +1,3 @@
-import QueueStatisticsTable from './components/QueueStatisticsTable';
 import MainPage from './components/MainPage';
 import './app.css';
 
