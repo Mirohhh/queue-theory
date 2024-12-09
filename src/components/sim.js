@@ -67,12 +67,27 @@ export const simulate = (lam, mu, iter) => {
 
 const calcAverage = (arr) => {
     const iterNum = arr.resMat.length;
-    const avgWT = arr.timeCustomerWaitInQuTotal / iterNum;
-    const avgST = arr.servTimeTotal / iterNum;
-    const propIS = parseFloat((arr.idleServtimeTotal / arr.resMat[iterNum - 1][6]).toFixed(2));
-    const avgSTInSys = arr.timeCustomerSpendsInSysTotal / iterNum;
-    const propCWQ = arr.noOfCustWhoWaited / iterNum;
-    return {avgWT, avgST, propIS, avgSTInSys, propCWQ};
+    const avgWaitingTime = arr.timeCustomerWaitInQuTotal / iterNum;
+    const avgServiceTime = arr.servTimeTotal / iterNum;
+    const propIdleServer = parseFloat((arr.idleServtimeTotal / arr.resMat[iterNum - 1][6]).toFixed(2));
+    const avgTimeSpentInSystem = arr.timeCustomerSpendsInSysTotal / iterNum;
+    const propCustomerWaitsInQueue = arr.noOfCustWhoWaited / iterNum;
+    return {avgServiceTime, avgWaitingTime, propCustomerWaitsInQueue, avgTimeSpentInSystem, propIdleServer};
 }
 
-console.log(simulate(8, 6, 20));
+export const reset = () => {
+    arrivalTime = 0;
+    servTime = 0;
+    timeServBegins = 0;
+    timeCustomerWaitInQu = 0;
+    timeServEnds = 0;
+    timeCustomerSpendsInSys = 0;
+    idleServtime = 0;
+    resMat = [];
+    servTimeTotal = 0;
+    timeCustomerWaitInQuTotal = 0;
+    timeCustomerSpendsInSysTotal = 0;
+    idleServtimeTotal = 0;
+    noOfCustWhoWaited = 0;
+    tse = 0;
+}

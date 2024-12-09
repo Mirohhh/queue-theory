@@ -24,6 +24,7 @@ div#main-container {
 }
 
 h1 {
+    font-family: Libre Baskerville, serif;
     text-align: center;
     font-size: 5rem;
     font-weight: 200;
@@ -31,7 +32,7 @@ h1 {
     font-style: italic;
     margin-top: 53.6px;
     margin-bottom: 72px;
-    text-shadow: 2px 5px 24px #282828;
+    text-shadow: 2px 5px 32px rgba(255, 255, 255, 0.1);
     letter-spacing: normal;
 }
 
@@ -94,7 +95,7 @@ input:focus {
     outline: 0;
 }
 
-h3 {
+p#result {
     font-size: 2rem;
     color: #f1f1f1;
     align-self: center;
@@ -171,8 +172,8 @@ h4 {
     margin: 21.28px 0;
 }
 
-table {
-    border-radius: 8px;
+table tr:nth-child(odd) td {
+    background-color: #282828;
 }
 
 footer {

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { MM1QueueSim } from './test';
-
-let result;
+import { simulate, reset } from './sim';
+import decamelize from 'decamelize';
 
 /**
  * QueueStatisticsTable is a React component that takes in lambda, mu, and iterations
@@ -22,52 +22,70 @@ const QueueStatisticsTable = (props) => {
   const [serviceRate, setServiceRate] = useState(props.mu);
   const [iterations, setIterations] = useState(props.it);
   const [simulationResults, setSimulationResults] = useState([]);
+  const [performanceMetrics, setPerformanceMetrics] = useState([]);
   
   const runSimulation = () => {
-    MM1QueueSim.reset();
+    reset();
     setArrivalRate(parseFloat(props.lam));
     setServiceRate(parseFloat(props.mu));
-    result = MM1QueueSim.main(arrivalRate, serviceRate, iterations);
-    setSimulationResults(result);
+    const results = simulate(arrivalRate, serviceRate, iterations);
+    setSimulationResults(results.resMat);
+    setPerformanceMetrics(results.perfMetrics);
   };
 
   return (
-    <div className="p-4">
-      <div className="flex justify-center mb-4">
+    <div className="py-8 px-16">
+      <div className="flex justify-center mb-5">
         <button
-          className="bg-blue-600 hover:bg-blue-700 transition-colors text-mytext font-semibold text-lg py-2 px-6 border-2 border-btn rounded-md"
+          className="bg-blue-600 hover:bg-blue-700 transition-colors text-mytext font-semibold text-lg py-2 px-4 border-2 border-btn rounded-md"
           onClick={runSimulation}
         >
           Run Simulation
         </button>
       </div>
-      <div className="overflow-x-auto rounded-md">
-        <table className="min-w-full border-primary border-2 rounded-md border-collapse overflow-hidden text-xl">
+      <div className="overflow-x-auto rounded-lg">
+        <table className="min-w-full border-primary border-2 rounded-lg border-collapse overflow-hidden text-xl">
           <thead className='text-mytext'>
-            <tr className="bg-red-600">
-              <th className="border py-4 px-6">#Customer</th>
-              <th className="border py-4 px-6">Clock</th>
-              <th className="border py-4 px-6">Event</th>
-              <th className="border py-4 px-6">#Arrival</th>
-              <th className="border py-4 px-6">#Departure</th>
-              <th className="border py-4 px-6">#InSystem</th>
-              <th className="border py-4 px-6">Wait</th>
+            <tr className="bg-action">
+              <th className="border py-2 px-4 text-left">Customer</th>
+              <th className="border py-2 px-4 text-left">Time Since Last Arrival(Mins)</th>
+              <th className="border py-2 px-4 text-left">Arrival Time</th>
+              <th className="border py-2 px-4 text-left">Service Time(Mins)</th>
+              <th className="border py-2 px-4 text-left">Time Service Begins</th>
+              <th className="border py-2 px-4 text-left">Time Customer Waits in Queue(Mins)</th>
+              <th className="border py-2 px-4 text-left">Time Service Ends</th>
+              <th className="border py-2 px-4 text-left">Time Customer Spends in System(Mins)</th>
+              <th className="border py-2 px-4 text-left">Idle Server Time(Mins)</th>
             </tr>
           </thead>
           <tbody className='text-mytext'>
             {simulationResults.map((event, i) => (
-              <tr key={i} className="bg-primary hover:bg-secondary">
-                <td className="border p-2 text-center">{event[0]}</td>
-                <td className="border p-2 text-right">{Math.round(Number(event[1]))}</td>
-                <td className="border p-2">{event[2]}</td>
-                <td className="border p-2 text-center">{event[3]}</td>
-                <td className="border p-2 text-center">{event[4]}</td>
+              <tr key={i} className="bg-primary">
+                <td className="border p-2 text-right">{event[0]}</td>
+                <td className="border p-2 text-right">{event[1]}</td>
+                <td className="border p-2 text-right">{event[2]}</td>
+                <td className="border p-2 text-right">{event[3]}</td>
+                <td className="border p-2 text-right">{event[4]}</td>
                 <td className="border p-2 text-right">{event[5]}</td>
-                <td className="border p-2 text-right">{Math.round(Number(event[6]))}</td>
+                <td className="border p-2 text-right">{event[6]}</td>
+                <td className="border p-2 text-right">{event[7]}</td>
+                <td className="border p-2 text-right">{event[8]}</td>
               </tr>
             ))}
           </tbody>
         </table>
+      </div>
+      <div className='flex bg-secondary rounded-lg p-6 mt-5'>
+        <section>
+          <h2 className='text-action font-bold text-4xl'>Performance Metrics</h2>
+          <section className='flex  items-start gap-20 mt-4'>
+            {Object.entries(performanceMetrics).map(([key, value], i) => (
+              <div key={i} className='flex flex-col items-center text-mytext text-2xl'>
+                <p className='capitalize'><strong>{decamelize(key, {separator: ' '})}:</strong> {value}</p>
+              </div>
+            ))}
+          </section>
+        </section>
       </div>
     </div>
   );
