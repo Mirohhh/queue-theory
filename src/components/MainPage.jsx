@@ -3,6 +3,15 @@ import { useState } from 'react';
 import { detModel } from './QueueCalc';
 import QueueStatisticsTable from './QueueStatisticsTable';
 
+/**
+ * MainPage is a React component that renders a form for inputting queue theory parameters
+ * such as arrival rate, service rate, number of servers, and system capacity. Upon form submission,
+ * it calculates and displays queue statistics using the detModel function and toggles the 
+ * visibility of the QueueStatisticsTable component to show detailed simulation results.
+ *
+ * @returns {JSX.Element} - A JSX element containing the input form, calculation result, and 
+ *                          optionally the queue statistics table.
+ */
 const MainPage = () => {
     const [lambda, setLambda] = useState('');
     const [mu, setMu] = useState('');
