@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { MM1QueueSim } from './test';
 import { simulate, reset } from './sim';
 import decamelize from 'decamelize';
 import SimChart from './SimChart';
