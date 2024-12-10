@@ -32,8 +32,8 @@ h1 {
     font-style: italic;
     margin-top: 53.6px;
     margin-bottom: 72px;
-    text-shadow: 2px 5px 32px rgba(255, 255, 255, 0.1);
-    letter-spacing: normal;
+    text-shadow: 2px 5px 24px rgba(255, 255, 255, 0.1);
+    letter-spacing: 0.5rem;
 }
 
 section#form-outer-sec {
@@ -144,7 +144,7 @@ span#btn-txt {
     }
 }
 
-svg {
+#arrow {
     width: 24px;
     height: 24px;
     fill: #f1f1f1;
@@ -156,7 +156,7 @@ svg {
     translate: 12%;
 }
 
-#sbmt:hover > svg {
+#sbmt:hover > #arrow {
     transform: translateX(8px) ;
     opacity: 1;
 }

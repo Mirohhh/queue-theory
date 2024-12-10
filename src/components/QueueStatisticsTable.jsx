@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { MM1QueueSim } from './test';
 import { simulate, reset } from './sim';
 import decamelize from 'decamelize';
+import SimChart from './SimChart';
 
 /**
  * QueueStatisticsTable is a React component that takes in lambda, mu, and iterations
@@ -23,6 +24,7 @@ const QueueStatisticsTable = (props) => {
   const [iterations, setIterations] = useState(props.it);
   const [simulationResults, setSimulationResults] = useState([]);
   const [performanceMetrics, setPerformanceMetrics] = useState([]);
+  const [data, setData] = useState([]);
   
   const runSimulation = () => {
     reset();
@@ -31,10 +33,11 @@ const QueueStatisticsTable = (props) => {
     const results = simulate(arrivalRate, serviceRate, iterations);
     setSimulationResults(results.resMat);
     setPerformanceMetrics(results.perfMetrics);
+    setData(results.noCustomerArr);
   };
 
   return (
-    <div className="py-8 px-16">
+    <div className="py-8 px-16 border-t border-secondary">
       <div className="flex justify-center mb-5">
         <button
           className="bg-blue-600 hover:bg-blue-700 transition-colors text-mytext font-semibold text-lg py-2 px-4 border-2 border-btn rounded-md"
@@ -42,6 +45,10 @@ const QueueStatisticsTable = (props) => {
         >
           Run Simulation
         </button>
+      </div>
+      <div className='mb-5 mt-12 flex flex-col items-center'>
+        <h2 className='text-mytext text-2xl mb-3'>Number of Customers in System</h2>
+        {data ? <SimChart data={data}/> : ''}
       </div>
       <div className="overflow-x-auto rounded-lg">
         <table className="min-w-full border-primary border-2 rounded-lg border-collapse overflow-hidden text-xl">
@@ -87,6 +94,7 @@ const QueueStatisticsTable = (props) => {
           </section>
         </section>
       </div>
+      
     </div>
   );
 };

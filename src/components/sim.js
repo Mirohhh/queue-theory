@@ -1,5 +1,7 @@
 let arrivalTime = 0;
 let servTime;
+let numCustomersInSystem = 0;
+let noCustomerArr = [];
 let timeServBegins;
 let timeSinceLastArrival;
 let timeCustomerWaitInQu;
@@ -57,12 +59,20 @@ export const simulate = (lam, mu, iter) => {
         idleServtime = Math.max(arrivalTime - tse, 0);
         idleServtimeTotal += idleServtime;
         tse = timeServEnds;
+
+        if (timeCustomerWaitInQu > 0) {
+            numCustomersInSystem++; // increment if customer waits in queue
+        } else {
+            numCustomersInSystem = Math.max(numCustomersInSystem - 1, 0); // decrement if customer doesn't wait in queue
+        }
+
+        noCustomerArr.push([timeServEnds, numCustomersInSystem]);
         resMat.push([i+1, timeSinceLastArrival, arrivalTime, servTime, timeServBegins, timeCustomerWaitInQu, timeServEnds, timeCustomerSpendsInSys, idleServtime]);
     }
 
     const perfMetrics = calcAverage({resMat, servTimeTotal, timeCustomerWaitInQuTotal, timeCustomerSpendsInSysTotal, idleServtimeTotal, noOfCustWhoWaited});
 
-    return {resMat, perfMetrics};
+    return {resMat, perfMetrics, noCustomerArr};
 }
 
 const calcAverage = (arr) => {
@@ -90,4 +100,6 @@ export const reset = () => {
     idleServtimeTotal = 0;
     noOfCustWhoWaited = 0;
     tse = 0;
+    noCustomerArr = [];
+    numCustomersInSystem = 0;
 }

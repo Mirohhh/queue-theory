@@ -51,11 +51,11 @@ const MainPage = () => {
                     <input type="text" id="bound" className='init-input' maxLength="2" onChange={(e) => setCapacity(e.target.value)}></input>
                 </div>
             </section>
-            <div type="submit" id="sbmt" onClick={onButtonClick}> <span id="btn-txt">Calculate</span> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>arrow-right</title><path d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z" /></svg> </div>
+            <div type="submit" id="sbmt" onClick={onButtonClick}> <span id="btn-txt">Calculate</span> <svg id='arrow' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>arrow-right</title><path d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z" /></svg> </div>
             <p id="result">{h3Txt}</p>
             
         </form>
-        {showTable && <QueueStatisticsTable lam={lambda} mu={mu} it={20}></QueueStatisticsTable>}
+        {showTable && <QueueStatisticsTable lam={lambda} mu={mu} it={100}></QueueStatisticsTable>}
 
     </div>
     <footer>
