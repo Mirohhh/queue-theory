@@ -1,21 +1,3 @@
-import "./styles.css";
-
-const lambda = document.getElementById("lambda");
-const mu = document.getElementById("mu");
-const servers = document.getElementById("servers");
-const bound = document.getElementById("bound");
-const subBtn = document.getElementById("sbmt");
-const res = document.getElementById("result");
-
-subBtn.addEventListener("click", () => {
-    let lmd = parseFloat(lambda.value);
-    let mui = parseFloat(mu.value);
-    let serv = parseFloat(servers.value);
-    let bnd = parseFloat(bound.value);
-
-    res.innerText = detModel(serv, bnd, lmd, mui);
-});
-
 function roundToTwo(number) {
     return Math.round((number + Number.EPSILON) * 100) / 100;
 }
@@ -34,7 +16,7 @@ function factorial(num) {
     return result;
 }
 
-function detModel(s, b, lm, m) {
+export function detModel(s, b, lm, m) {
     if (s == 1 && b == 0) {
         return calcMM1(lm, m);
     } else if (s == 1 && b > 0) {

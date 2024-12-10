@@ -1,8 +1,13 @@
 body {
+    line-height: normal;
+    background-color: #0f0f0f;
     font-family: Inter, Arial, Helvetica, sans-serif;
     font-feature-settings: "frac" on;
     margin: 0;
     padding: 0;
+}
+
+#root {
     height: 100vh;
     display: grid;
     grid-template-rows: 2fr;
@@ -19,13 +24,16 @@ div#main-container {
 }
 
 h1 {
+    font-family: Libre Baskerville, serif;
     text-align: center;
     font-size: 5rem;
     font-weight: 200;
     color: #f2f2f2;
     font-style: italic;
+    margin-top: 53.6px;
     margin-bottom: 72px;
-    text-shadow: 2px 5px 24px #282828;
+    text-shadow: 2px 5px 24px rgba(255, 255, 255, 0.1);
+    letter-spacing: 0.5rem;
 }
 
 section#form-outer-sec {
@@ -38,6 +46,7 @@ section#form-outer-sec {
 form {
     display: flex;
     flex-direction: column;
+    padding-bottom: 36px;
 }
 
 section#form-inner-sec {
@@ -69,8 +78,9 @@ input {
     border-radius: 8px;
     border: 4px solid transparent;
     padding: 4% 0%;
-
-    font-size: 10rem;
+    font-family: Inter, Arial, Helvetica, sans-serif;
+    font-feature-settings: "frac" off;
+    font-size: 9rem;
     font-weight: 500;
     transition: 0.4s cubic-bezier(.05,0,0,1);
     text-align: center;
@@ -85,7 +95,7 @@ input:focus {
     outline: 0;
 }
 
-h3 {
+p#result {
     font-size: 2rem;
     color: #f1f1f1;
     align-self: center;
@@ -104,6 +114,7 @@ h3 {
     width: 12%;
     align-self: center;
     margin-top: 4%;
+    margin-bottom: 32px;
     height: 60px;
     transition: 0.15s ease-out;
     border: 2px solid rgb(255, 255, 255, 0.1);
@@ -133,7 +144,7 @@ span#btn-txt {
     }
 }
 
-svg {
+#arrow {
     width: 24px;
     height: 24px;
     fill: #f1f1f1;
@@ -145,7 +156,7 @@ svg {
     translate: 12%;
 }
 
-#sbmt:hover > svg {
+#sbmt:hover > #arrow {
     transform: translateX(8px) ;
     opacity: 1;
 }
@@ -158,6 +169,11 @@ svg {
 h4 {
     color: #f1f1f1;
     font-weight: 400;
+    margin: 21.28px 0;
+}
+
+table tr:nth-child(odd) td {
+    background-color: #282828;
 }
 
 footer {
