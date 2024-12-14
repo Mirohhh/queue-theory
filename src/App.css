@@ -87,6 +87,12 @@ input {
     text-align: center;
 }
 
+input#iter-Inpt {
+    padding: 4px;
+    font-size: 2rem;
+    max-width: 200px;
+}
+
 input:hover {
     background-color: #282828;
 }
@@ -191,9 +197,14 @@ footer {
     border-top: 2px solid #282828;
 }
 
-i::before{
+i::before {
     color: #f1f1f1;
     font-size: 24px;
+    transition: 0.1s cubic-bezier(0.55, 0.055, 0.675, 0.19);
+}
+
+i:hover::before{
+    color: orangered;
 }
 
 a {

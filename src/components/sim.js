@@ -14,8 +14,8 @@ let timeCustomerWaitInQuTotal = 0;
 let timeCustomerSpendsInSysTotal = 0;
 let idleServtimeTotal = 0;
 
-const rand = () => {
-    return Math.random();
+const rand = (mean) => {
+    return Math.round((Math.log(1 - Math.random()) / -mean));
 }
 
 let tse = 0;
@@ -45,9 +45,11 @@ let noOfCustWhoWaited = 0;
  */
 export const simulate = (lam, mu, iter) => {
     for (let i = 0; i < iter; i++) {
-        timeSinceLastArrival = i ===  0 ? 0 : Math.round(rand() * lam);
+        timeSinceLastArrival = i ===  0 ? 0 : rand(lam);
+        console.log(`Arr: ${rand(lam)}`);
         arrivalTime += timeSinceLastArrival;
-        servTime = Math.round(rand() * mu);
+        servTime = rand(mu);
+        console.log(`Serv: ${rand(mu)}`);
         servTimeTotal += servTime;
         timeServBegins = Math.max(arrivalTime, timeServEnds);
         timeCustomerWaitInQu = timeServBegins - arrivalTime;
@@ -77,11 +79,11 @@ export const simulate = (lam, mu, iter) => {
 
 const calcAverage = (arr) => {
     const iterNum = arr.resMat.length;
-    const avgWaitingTime = arr.timeCustomerWaitInQuTotal / iterNum;
-    const avgServiceTime = arr.servTimeTotal / iterNum;
+    const avgWaitingTime = parseFloat((arr.timeCustomerWaitInQuTotal / iterNum).toFixed(2));
+    const avgServiceTime = parseFloat((arr.servTimeTotal / iterNum).toFixed(2));
     const propIdleServer = parseFloat((arr.idleServtimeTotal / arr.resMat[iterNum - 1][6]).toFixed(2));
-    const avgTimeSpentInSystem = arr.timeCustomerSpendsInSysTotal / iterNum;
-    const propCustomerWaitsInQueue = arr.noOfCustWhoWaited / iterNum;
+    const avgTimeSpentInSystem = parseFloat((arr.timeCustomerSpendsInSysTotal / iterNum).toFixed(2));
+    const propCustomerWaitsInQueue = parseFloat((arr.noOfCustWhoWaited / iterNum).toFixed(2));
     return {avgServiceTime, avgWaitingTime, propCustomerWaitsInQueue, avgTimeSpentInSystem, propIdleServer};
 }
 
@@ -103,3 +105,5 @@ export const reset = () => {
     noCustomerArr = [];
     numCustomersInSystem = 0;
 }
+
+console.log(rand(0.167));

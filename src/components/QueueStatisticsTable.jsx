@@ -27,20 +27,25 @@ const QueueStatisticsTable = (props) => {
   
   const runSimulation = () => {
     reset();
-    setArrivalRate(parseFloat(props.lam));
-    setServiceRate(parseFloat(props.mu));
     const results = simulate(arrivalRate, serviceRate, iterations);
     setSimulationResults(results.resMat);
     setPerformanceMetrics(results.perfMetrics);
     setData(results.noCustomerArr);
   };
 
+  const handlehover = () => {
+    setArrivalRate(parseFloat(props.lam));
+    setServiceRate(parseFloat(props.mu));
+  }
+
   return (
     <div className="py-8 px-16 border-t border-secondary">
-      <div className="flex justify-center mb-5">
+      <div className="flex justify-center mb-5 gap-2">
+      <input type="text" id="iter-Inpt" maxLength={4} placeholder="Iterations" onChange={(e) => setIterations(e.target.value)}></input>
         <button
-          className="bg-blue-600 hover:bg-blue-700 transition-colors text-mytext font-semibold text-lg py-2 px-4 border-2 border-btn rounded-md"
+          className="bg-blue-600 hover:bg-blue-700 transition-colors text-mytext font-semibold text-xl py-2 px-6 border-2 border-btn rounded-lg"
           onClick={runSimulation}
+          onMouseEnter={handlehover}
         >
           Run Simulation
         </button>
@@ -49,6 +54,7 @@ const QueueStatisticsTable = (props) => {
         <h2 className='text-mytext text-2xl mb-3'>Number of Customers in System</h2>
         {data ? <SimChart data={data}/> : ''}
       </div>
+
       <div className="overflow-x-auto rounded-lg">
         <table className="min-w-full border-primary border-2 rounded-lg border-collapse overflow-hidden text-xl">
           <thead className='text-mytext'>
@@ -81,10 +87,11 @@ const QueueStatisticsTable = (props) => {
           </tbody>
         </table>
       </div>
+      
       <div className='flex bg-secondary rounded-lg p-6 mt-5'>
         <section>
           <h2 className='text-action font-bold text-4xl'>Performance Metrics</h2>
-          <section className='flex  items-start gap-20 mt-4'>
+          <section className='flex items-start gap-20 mt-4'>
             {Object.entries(performanceMetrics).map(([key, value], i) => (
               <div key={i} className='flex flex-col items-center text-mytext text-2xl'>
                 <p className='capitalize'><strong>{decamelize(key, {separator: ' '})}:</strong> {value}</p>
