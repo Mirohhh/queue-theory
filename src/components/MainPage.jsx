@@ -21,7 +21,7 @@ const MainPage = () => {
     const [showTable, setShowTable] = useState(false);
 
     const onButtonClick = () => {
-        setH3Txt(detModel(servers, capacity, lambda, mu));
+        setH3Txt(detModel(parseFloat(servers), parseFloat(capacity), parseFloat(lambda), parseFloat(mu)));
         setShowTable(true);
     }
 
