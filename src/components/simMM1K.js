@@ -95,7 +95,7 @@ const calcAverage = (arr) => {
     return {avgServiceTime, avgWaitingTime, propCustomerWaitsInQueue, avgTimeSpentInSystem, propIdleServer};
 }
 
-export const reset = () => {
+export const resetMM1K = () => {
     arrivalTime = 0;
     servTime = 0;
     timeServBegins = 0;

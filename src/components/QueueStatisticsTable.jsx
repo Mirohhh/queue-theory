@@ -3,7 +3,7 @@ import { simulate, reset } from './sim';
 import decamelize from 'decamelize';
 import SimChart from './SimChart';
 import { simulateMMC } from './simMMC';
-import { simulateMM1K } from './simMM1K';
+import { resetMM1K, simulateMM1K } from './simMM1K';
 
 /**
  * QueueStatisticsTable is a React component that takes in lambda, mu, and iterations
@@ -61,7 +61,7 @@ const QueueStatisticsTable = (props) => {
   };
 
   const runSimulationMM1K = () => {
-    reset();
+    resetMM1K();
     const results = simulateMM1K(arrivalRate, serviceRate, iterations, capacity);
     setSimulationResults(results.resMat);
     setPerformanceMetrics(results.perfMetrics);
