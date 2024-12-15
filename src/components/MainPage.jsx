@@ -55,7 +55,7 @@ const MainPage = () => {
             <p id="result">{h3Txt}</p>
             
         </form>
-        {showTable && <QueueStatisticsTable lam={lambda} mu={mu} it={10}></QueueStatisticsTable>}
+        {showTable && <QueueStatisticsTable lam={lambda} mu={mu} ser={servers} cap={capacity} it={10}></QueueStatisticsTable>}
 
     </div>
     <footer>

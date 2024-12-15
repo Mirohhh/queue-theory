@@ -105,5 +105,3 @@ export const reset = () => {
     noCustomerArr = [];
     numCustomersInSystem = 0;
 }
-
-console.log(rand(0.167));
