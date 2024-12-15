@@ -3,6 +3,7 @@ import { simulate, reset } from './sim';
 import decamelize from 'decamelize';
 import SimChart from './SimChart';
 import { simulateMMC } from './simMMC';
+import { simulateMM1K } from './simMM1K';
 
 /**
  * QueueStatisticsTable is a React component that takes in lambda, mu, and iterations
@@ -36,10 +37,12 @@ const QueueStatisticsTable = (props) => {
       setShowTable(1);
         return 1;
     } else if (servers == 1 && capacity > 0) {
+      runSimulationMM1K();
+      setShowTable(2);
         return 2;
     } else if (servers > 1 && capacity == 0) {
       runSimulationMMC();
-      setShowTable(2);
+      setShowTable(3);
         return 3;
     } else if (servers > 1 && capacity > 0) {
       setShowTable(4);
@@ -52,6 +55,14 @@ const QueueStatisticsTable = (props) => {
   const runSimulation = () => {
     reset();
     const results = simulate(arrivalRate, serviceRate, iterations);
+    setSimulationResults(results.resMat);
+    setPerformanceMetrics(results.perfMetrics);
+    setData(results.noCustomerArr);
+  };
+
+  const runSimulationMM1K = () => {
+    reset();
+    const results = simulateMM1K(arrivalRate, serviceRate, iterations, capacity);
     setSimulationResults(results.resMat);
     setPerformanceMetrics(results.perfMetrics);
     setData(results.noCustomerArr);
@@ -151,6 +162,60 @@ const QueueStatisticsTable = (props) => {
 
               <thead className='text-mytext'>
                 <tr className="bg-action">
+                  <th className="border py-2 px-4 text-left">Customer</th>
+                  <th className="border py-2 px-4 text-left">Time Since Last Arrival(Mins)</th>
+                  <th className="border py-2 px-4 text-left">Arrival Time</th>
+                  <th className="border py-2 px-4 text-left">Service Time(Mins)</th>
+                  <th className="border py-2 px-4 text-left">Time Service Begins</th>
+                  <th className="border py-2 px-4 text-left">Time Customer Waits in Queue(Mins)</th>
+                  <th className="border py-2 px-4 text-left">Time Service Ends</th>
+                  <th className="border py-2 px-4 text-left">Time Customer Spends in System(Mins)</th>
+                  <th className="border py-2 px-4 text-left">Idle Server Time(Mins)</th>
+                </tr>
+              </thead>
+
+              <tbody className='text-mytext'>
+                {simulationResults.map((event, i) => (
+                  <tr key={i} className="bg-primary">
+                    <td className="border p-2 text-right">{event[0]}</td>
+                    <td className="border p-2 text-right">{event[1]}</td>
+                    <td className="border p-2 text-right">{event[2]}</td>
+                    <td className="border p-2 text-right">{event[3]}</td>
+                    <td className="border p-2 text-right">{event[4]}</td>
+                    <td className="border p-2 text-right">{event[5]}</td>
+                    <td className="border p-2 text-right">{event[6]}</td>
+                    <td className="border p-2 text-right">{event[7]}</td>
+                    <td className="border p-2 text-right">{event[8]}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <div className='flex bg-secondary rounded-lg p-6 mt-5'>
+            <section>
+              <h2 className='text-action font-bold text-4xl'>Performance Metrics</h2>
+              <section className='flex items-start gap-20 mt-4'>
+                {Object.entries(performanceMetrics).map(([key, value], i) => (
+                  <div key={i} className='flex flex-col items-center text-mytext text-2xl'>
+                    <p className='capitalize'><strong>{decamelize(key, { separator: ' ' })}:</strong> {value}</p>
+                  </div>
+                ))}
+              </section>
+            </section>
+          </div>
+        </>
+        ) : showTable === 3 ? (
+          <>
+          <div className='mb-5 mt-12 flex flex-col items-center'>
+            <h2 className='text-mytext text-2xl mb-3'>Number of Customers in System</h2>
+            {data ? <SimChart data={data} /> : ''}
+          </div>
+          <div className="overflow-x-auto rounded-lg">
+            <table className="min-w-full border-primary border-2 rounded-lg border-collapse overflow-hidden text-xl">
+
+              <thead className='text-mytext'>
+                <tr className="bg-action">
                   <th className="border py-2 px-4 text-left">Event Number</th>
                   <th className="border py-2 px-4 text-left">Event Type</th>
                   <th className="border py-2 px-4 text-left">Clock Time</th>
@@ -196,8 +261,7 @@ const QueueStatisticsTable = (props) => {
               </section>
             </section>
           </div>
-        </>) : showTable === 3 ? (
-        <></>) : showTable === 4 ? (
+        </>) : showTable === 4 ? (
         <></>) : ''}
 
     </div>
