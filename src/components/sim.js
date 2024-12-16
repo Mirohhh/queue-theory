@@ -15,7 +15,7 @@ let timeCustomerSpendsInSysTotal = 0;
 let idleServtimeTotal = 0;
 
 const rand = (mean) => {
-    return Math.round((Math.log(1 - Math.random()) / -mean));
+    return (Math.log(1 - Math.random()) / -mean);
 }
 
 let tse = 0;
@@ -68,8 +68,8 @@ export const simulate = (lam, mu, iter) => {
             numCustomersInSystem = Math.max(numCustomersInSystem - 1, 0); // decrement if customer doesn't wait in queue
         }
 
-        noCustomerArr.push([timeServEnds, numCustomersInSystem]);
-        resMat.push([i+1, timeSinceLastArrival, arrivalTime, servTime, timeServBegins, timeCustomerWaitInQu, timeServEnds, timeCustomerSpendsInSys, idleServtime]);
+        noCustomerArr.push([parseFloat((timeServEnds).toFixed(2)), parseFloat((numCustomersInSystem).toFixed(2))]);
+        resMat.push([i+1, parseFloat((timeSinceLastArrival).toFixed(2)), parseFloat((arrivalTime).toFixed(2)), parseFloat((servTime).toFixed(2)), parseFloat((timeServBegins).toFixed(2)), parseFloat((timeCustomerWaitInQu).toFixed(2)), parseFloat((timeServEnds).toFixed(2)), parseFloat((timeCustomerSpendsInSys).toFixed(2)), parseFloat((idleServtime).toFixed(2))]);
     }
 
     const perfMetrics = calcAverage({resMat, servTimeTotal, timeCustomerWaitInQuTotal, timeCustomerSpendsInSysTotal, idleServtimeTotal, noOfCustWhoWaited});
