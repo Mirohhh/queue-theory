@@ -11,7 +11,6 @@ body {
     height: 100vh;
     display: grid;
     grid-template-rows: 2fr;
-    
 }
 
 div#main-container {
@@ -83,7 +82,7 @@ input {
     font-feature-settings: "frac" off;
     font-size: 9rem;
     font-weight: 500;
-    transition: 0.4s cubic-bezier(.05,0,0,1);
+    transition: 0.4s cubic-bezier(0.05, 0, 0, 1);
     text-align: center;
 }
 
@@ -164,12 +163,12 @@ span#btn-txt {
 }
 
 #sbmt:hover > #arrow {
-    transform: translateX(8px) ;
+    transform: translateX(8px);
     opacity: 1;
 }
 
 #sbmt:hover > text {
-    transform: translateX(-4px) ;
+    transform: translateX(-4px);
     opacity: 1;
 }
 
@@ -177,10 +176,6 @@ h4 {
     color: #f1f1f1;
     font-weight: 400;
     margin: 21.28px 0;
-}
-
-tbody {
-    font-family: "Space Mono", monospace;
 }
 
 table tr:nth-child(odd) td {
@@ -207,11 +202,37 @@ i::before {
     transition: 0.1s cubic-bezier(0.55, 0.055, 0.675, 0.19);
 }
 
-i:hover::before{
+i:hover::before {
     color: orangered;
 }
 
 a {
     color: #f1f1f1;
     text-decoration: none;
+    transition: transform 0.1s cubic-bezier(0.55, 0.055, 0.675, 0.19);
 }
+
+a:hover {
+    transform: scale(1.15);
+    /* animation: bounce 0.5s infinite; */
+}
+/* 
+@keyframes bounce {
+    from {
+        transform: translateY(0);
+        animation-timing-function: ease-out;
+    }
+    50% {
+        transform: translateY(-16px);
+        animation-timing-function: ease-in;
+        /* animation-timing-function: ease-out;
+    }
+    to {
+        transform: translateY(0px);
+        animation-timing-function: ease-in;
+    }
+    } */
+
+/* footer:hover a {
+    animation: bounce 0.6s infinite;
+} */
